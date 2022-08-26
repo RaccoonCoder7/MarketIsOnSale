@@ -8,6 +8,6 @@ public class StartSceneMgr : MonoBehaviour
 
     public void MoveToNarrationScene()
     {
-        SceneMgr.ChangeScene(NarrationSceneName);
+        SceneMgr.In.ChangeScene(NarrationSceneName);
     }
 }
