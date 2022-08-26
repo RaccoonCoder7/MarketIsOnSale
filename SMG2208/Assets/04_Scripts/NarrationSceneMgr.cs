@@ -10,6 +10,7 @@ public class NarrationSceneMgr : MonoBehaviour
     public Text narrationText;
     public TextAsset narrationTextAsset;
     public float textDelayTime;
+    public string gameSceneName;
     private bool isTextFlowing;
     private bool skipLine;
     private List<string> lines = new List<string>();
@@ -46,7 +47,7 @@ public class NarrationSceneMgr : MonoBehaviour
 
     public void MoveToGameScene()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneMgr.ChangeScene(gameSceneName);
     }
 
     private void SkipCurrNarration()
