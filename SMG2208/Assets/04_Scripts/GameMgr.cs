@@ -5,8 +5,14 @@ using UnityEngine;
 public class GameMgr : SingletonMono<GameMgr>
 {
     public int score;
-    public float currTime;
+    public float totalTime;
     public GameState gameState;
+    public int scorePerSecond;
+    public int scorePerItem;
+    public int gameLimitTime;
+    public int totalItemCnt;
+
+    private float tempTime;
 
     public enum GameState
     {
@@ -20,10 +26,20 @@ public class GameMgr : SingletonMono<GameMgr>
         switch (gameState)
         {
             case GameState.None:
+            case GameState.Pause:
                 break;
             case GameState.Play:
-                break;
-            case GameState.Pause:
+                tempTime += Time.deltaTime;
+                totalTime += Time.deltaTime;
+                if (tempTime >= 1)
+                {
+                    AddScore(scorePerSecond);
+                    tempTime -= 1;
+                }
+                if (totalTime >= gameLimitTime)
+                {
+                    gameState = GameState.None;
+                }
                 break;
         }
     }
@@ -33,20 +49,22 @@ public class GameMgr : SingletonMono<GameMgr>
         score += value;
     }
 
-    public void ClearScore()
+    public void AddItem(int value)
     {
-        score = 0;
-    }
-
-    public void ResetTime()
-    {
-        currTime = 0;
+        totalItemCnt += value;
     }
 
     public void ResetGame()
     {
         gameState = GameState.None;
-        ClearScore();
-        ResetTime();
+        score = 0;
+        totalTime = 0;
+        totalItemCnt = 0;
+        tempTime = 0;
+    }
+
+    public int GetTotalScore()
+    {
+        return (totalItemCnt * scorePerItem) + (gameLimitTime * scorePerSecond);
     }
 }

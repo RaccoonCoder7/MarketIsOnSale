@@ -800,6 +800,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f5d917e62dbc5459a48d1251856848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 0
+  playerState: 0
 --- !u!1 &1697573931
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,8 +965,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  currTime: 0
+  totalTime: 0
   gameState: 0
+  scorePerSecond: 100
+  scorePerItem: 500
+  gameLimitTime: 120
+  totalItemCnt: 0
 --- !u!4 &1703816416
 Transform:
   m_ObjectHideFlags: 0
