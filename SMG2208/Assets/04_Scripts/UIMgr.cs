@@ -11,6 +11,8 @@ public class UIMgr : MonoBehaviour
     public GameObject scoreBoard;
     public GameObject countdown;
 
+    public Image[] hearts;
+
     private float count;
     private Text timeBoardText;
     private Text scoreBoardText;
@@ -33,6 +35,18 @@ public class UIMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Show the current health, time, score
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < PlayerMgr.In.hp)
+            {
+                hearts[i].enabled = true;
+            }
+            else
+            {
+                hearts[i].enabled = false;
+            }
+        }
         timeBoardText.text = "남은 시간 : " + ((int)GameMgr.In.gameLimitTime - (int)GameMgr.In.totalTime);
         scoreBoardText.text = "점수 : " + GameMgr.In.GetTotalScore();
         switch (GameMgr.In.gameState)

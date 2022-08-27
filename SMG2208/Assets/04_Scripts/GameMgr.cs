@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class GameMgr : SingletonMono<GameMgr>
 {
-    public int score = 0;
-    public float totalTime = 0;
-    public GameState gameState = GameState.None;
-    public int scorePerSecond = 100;
-    public int scorePerItem = 500;
-    public int gameLimitTime = 120;
-    public int totalItemCnt = 0;
+    public int score;
+    public float totalTime;
+    public GameState gameState;
+    public int scorePerSecond;
+    public int scorePerItem;
+    public int gameLimitTime;
+    public int totalItemCnt;
 
     private float tempTime;
 
