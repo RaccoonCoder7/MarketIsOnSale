@@ -846,6 +846,8 @@ MonoBehaviour:
   quote: {fileID: 1117042255}
   GameSceneName: GameScene
   StartSceneName: StartScene
+  GameOver: {fileID: 21300000, guid: 10817ff646d05aa4e9fbaf0e7214d346, type: 3}
+  GameClear: {fileID: 21300000, guid: 6503d8db038a61845aaefb5c0eb8a2fa, type: 3}
 --- !u!4 &1438539138
 Transform:
   m_ObjectHideFlags: 0
