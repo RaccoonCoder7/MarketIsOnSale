@@ -14,7 +14,7 @@ public class EndingSceneMgr : MonoBehaviour
     {
         Text scoreBoardText = scoreBoard.GetComponentInChildren<Text>();
         int totalScore = GameMgr.In.GetTotalScore();
-        scoreBoardText.text = "¡°ºˆ : " + totalScore.ToString();
+        scoreBoardText.text = "Ï†êÏàò: " + totalScore.ToString();
     }
 
     // Restart the Game
@@ -24,6 +24,7 @@ public class EndingSceneMgr : MonoBehaviour
         PlayerMgr.In.ResetPlayer();
         SceneMgr.In.ChangeScene(GameSceneName);
         PlayerMgr.In.InitPlayer();
+        AudioMgr.In.Play(0);
     }
 
     // Quit the game and back to main menu

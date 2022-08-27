@@ -90,6 +90,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
                 case PlayerState.Dead:
                     GameMgr.In.gameState = GameMgr.GameState.None;
                     SceneMgr.In.ChangeScene(GameMgr.In.EndingSceneName);
+                    AudioMgr.In.StopPlay();
                     break;
             }
         }
@@ -115,6 +116,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         rigid.velocity = Vector2.zero;
         rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
         playerState = PlayerState.Jump;
+        AudioMgr.In.PlayOneShot(1);
     }
 
     private void DetectBulb()
@@ -129,6 +131,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         if (detectBulbRoutine != null) return;
 
         detectBulbRoutine = StartCoroutine(DetectBulbRoutine());
+        AudioMgr.In.PlayOneShot(2);
     }
 
     private void CancelDetectBulb()
@@ -257,6 +260,11 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
             var spawnObj = other.GetComponent<SpawnObject>();
             AddDamage(spawnObj.damage);
             spawnObj.DestroyObject();
+        }
+        else if (other.gameObject.tag.Equals("Item"))
+        {
+            // TODO: Item
+            AudioMgr.In.PlayOneShot(3);
         }
     }
 

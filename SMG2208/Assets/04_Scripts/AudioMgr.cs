@@ -20,8 +20,12 @@ public class AudioMgr : SingletonMono<AudioMgr>
 
     public void Play(int clipIndex)
     {
-        audioSource.Stop();
         audioSource.clip = clipList[clipIndex];
         audioSource.Play();
+    }
+
+    public void StopPlay()
+    {
+        audioSource.Stop();
     }
 }

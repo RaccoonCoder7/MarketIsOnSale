@@ -42,6 +42,7 @@ public class GameMgr : SingletonMono<GameMgr>
                 {
                     gameState = GameState.None;
                     SceneMgr.In.ChangeScene(EndingSceneName);
+                    AudioMgr.In.StopPlay();
                 }
                 break;
         }
