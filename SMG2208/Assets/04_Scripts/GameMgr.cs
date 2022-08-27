@@ -53,6 +53,7 @@ public class GameMgr : SingletonMono<GameMgr>
         score = 0;
         totalTime = 0;
         totalItemCnt = 0;
+        AudioMgr.In.StopPlay();
     }
 
     // Calculating the total score
