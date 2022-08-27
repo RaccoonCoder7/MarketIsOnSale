@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UIMgr : MonoBehaviour
 {
-    public GameMgr.GameState gameState = GameMgr.In.gameState;
     public GameObject menuSet;
     public GameObject howToPlayWindow;
     public GameObject timeBoard;
@@ -17,7 +16,7 @@ public class UIMgr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameState = GameMgr.GameState.None;
+        GameMgr.In.gameState = GameMgr.GameState.None;
         menuSet.SetActive(false);
         howToPlayWindow.SetActive(true);
         timeBoard.SetActive(false);
@@ -28,7 +27,7 @@ public class UIMgr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (gameState)
+        switch (GameMgr.In.gameState)
         {
             case GameMgr.GameState.None:
                 // Countdown
@@ -39,7 +38,7 @@ public class UIMgr : MonoBehaviour
                     countdownText.text = ((int)count + 1).ToString();
                     if(count <= 0.0f)
                     {
-                        gameState = GameMgr.GameState.Play;
+                        GameMgr.In.gameState = GameMgr.GameState.Play;
                         countdown.SetActive(false);
                     }
                 }
@@ -74,14 +73,14 @@ public class UIMgr : MonoBehaviour
     // Pause the game
     public void GamePause()
     {
-        gameState = GameMgr.GameState.Pause;
+        GameMgr.In.gameState = GameMgr.GameState.Pause;
         menuSet.SetActive(true);
     }
 
     // Resume the game
     public void GameResume()
     {
-        gameState = GameMgr.GameState.Play;
+        GameMgr.In.gameState = GameMgr.GameState.Play;
         menuSet.SetActive(false);
     }
 
