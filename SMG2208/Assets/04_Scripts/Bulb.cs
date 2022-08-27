@@ -9,6 +9,8 @@ public class Bulb : MonoBehaviour
     [HideInInspector]
     public PatternSpawner spawner;
 
+    private float totalLifeTime;
+
     /// </summary>
     private void Start()
     {
@@ -17,13 +19,23 @@ public class Bulb : MonoBehaviour
 
     void Update()
     {
+        if (GameMgr.In.gameState != GameMgr.GameState.Play)
+        {
+            return;
+        }
+
+        totalLifeTime += Time.deltaTime;
         transform.Translate(Vector3.left * Time.deltaTime * moveSpeed, Space.World);
     }
 
     private IEnumerator DestroyBulb(float lifeTime)
     {
-        yield return new WaitForSeconds(lifeTime);
+        while (totalLifeTime < lifeTime)
+        {
+            yield return null;
+        }
+
         spawner.bulbList.Remove(this.transform);
-        Destroy(gameObject, lifeTime);
+        Destroy(gameObject);
     }
 }

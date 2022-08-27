@@ -7,7 +7,7 @@ public class PatternSpawner : MonoBehaviour
     public Bulb spawnObj;
     public List<Transform> bulbList = new List<Transform>();
 
-    private int testNum = 0;
+    private float spawnTime;
 
     void Start()
     {
@@ -20,11 +20,20 @@ public class PatternSpawner : MonoBehaviour
     {
         while (true)
         {
-            var bulb = Instantiate(spawnObj, this.transform);
-            bulb.spawner = this;
-            bulb.name = testNum++.ToString();
-            bulbList.Add(bulb.transform);
-            yield return new WaitForSeconds(1f);
+            while (GameMgr.In.gameState != GameMgr.GameState.Play)
+            {
+                yield return null;
+            }
+
+            spawnTime += Time.deltaTime;
+            if (spawnTime >= 1)
+            {
+                var bulb = Instantiate(spawnObj, this.transform);
+                bulb.spawner = this;
+                bulbList.Add(bulb.transform);
+                spawnTime -= 1;
+            }
+            yield return null;
         }
     }
 }
