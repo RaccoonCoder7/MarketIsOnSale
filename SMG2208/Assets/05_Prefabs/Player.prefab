@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 3
-  playerState: 1
+  playerState: 0
   jumpPower: 25
   ropeReachSpeed: 30
   ropeReachLimit: 10

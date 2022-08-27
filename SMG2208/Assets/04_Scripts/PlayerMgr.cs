@@ -47,47 +47,55 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
             playerState = PlayerState.Dead;
             this.gameObject.SetActive(false);
         }
-        switch (playerState)
+        if (GameMgr.In.gameState == GameMgr.GameState.Play)
         {
-            case PlayerState.None:
-                break;
-            case PlayerState.Idle:
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    Jump();
-                }
-                break;
-            case PlayerState.Jump:
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    playerState = PlayerState.Rope;
-                }
-                break;
-            case PlayerState.Rope:
-                if (Input.GetKey(KeyCode.Space))
-                {
-                    DetectBulb();
-                }
-                if (Input.GetKeyUp(KeyCode.Space))
-                {
-                    CancelDetectBulb();
-                    playerState = PlayerState.None;
-                }
-                break;
-            case PlayerState.RopeJump:
-                if (Input.GetKey(KeyCode.Space))
-                {
-                    MoveToBulb();
-                }
-                if (Input.GetKeyUp(KeyCode.Space))
-                {
-                    CancelMoveToBulb();
-                }
-                break;
-            case PlayerState.Dead:
-                GameMgr.In.gameState = GameMgr.GameState.None;
-                SceneMgr.In.ChangeScene(GameMgr.In.EndingSceneName);
-                break;
+            rigid.WakeUp();
+            switch (playerState)
+            {
+                case PlayerState.None:
+                    break;
+                case PlayerState.Idle:
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        Jump();
+                    }
+                    break;
+                case PlayerState.Jump:
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        playerState = PlayerState.Rope;
+                    }
+                    break;
+                case PlayerState.Rope:
+                    if (Input.GetKey(KeyCode.Space))
+                    {
+                        DetectBulb();
+                    }
+                    if (Input.GetKeyUp(KeyCode.Space))
+                    {
+                        CancelDetectBulb();
+                        playerState = PlayerState.None;
+                    }
+                    break;
+                case PlayerState.RopeJump:
+                    if (Input.GetKey(KeyCode.Space))
+                    {
+                        MoveToBulb();
+                    }
+                    if (Input.GetKeyUp(KeyCode.Space))
+                    {
+                        CancelMoveToBulb();
+                    }
+                    break;
+                case PlayerState.Dead:
+                    GameMgr.In.gameState = GameMgr.GameState.None;
+                    SceneMgr.In.ChangeScene(GameMgr.In.EndingSceneName);
+                    break;
+            }
+        }
+        else
+        {
+            rigid.Sleep();
         }
     }
 

@@ -23,6 +23,7 @@ public class EndingSceneMgr : MonoBehaviour
         GameMgr.In.ResetGame();
         PlayerMgr.In.ResetPlayer();
         SceneMgr.In.ChangeScene(GameSceneName);
+        PlayerMgr.In.InitPlayer();
     }
 
     // Quit the game and back to main menu
