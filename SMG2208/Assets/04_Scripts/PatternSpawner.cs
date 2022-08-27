@@ -4,16 +4,40 @@ using UnityEngine;
 
 public class PatternSpawner : MonoBehaviour
 {
-    public Bulb spawnObj;
-    public List<Transform> bulbList = new List<Transform>();
+    public List<SpawnObject> spawnPrefabList = new List<SpawnObject>();
+    public TextAsset patternText;
+    public float spawnTerm = 2.395f;
+    public List<Transform> bulbTrList = new List<Transform>();
+    [HideInInspector]
+    public List<Transform> spawnObjList = new List<Transform>();
 
     private float spawnTime;
+    private int textCnt;
+    private string trimText;
 
     void Start()
     {
+        trimText = patternText.text.Trim();
+        spawnTime = spawnTerm;
+
         // TODO: 오브젝트풀링
-        PlayerMgr.In.bulbTrList = this.bulbList;
+        PlayerMgr.In.bulbTrList = this.bulbTrList;
         StartCoroutine(StartSpawn());
+    }
+
+    private int GetPatternNumber()
+    {
+        int num = 0;
+        System.Int32.TryParse(trimText[textCnt].ToString(), out num);
+        textCnt++;
+        return num;
+    }
+
+    private SpawnObject Spawn(int patternNum)
+    {
+        var obj = Instantiate(spawnPrefabList[patternNum], this.transform);
+        obj.spawner = this;
+        return obj;
     }
 
     private IEnumerator StartSpawn()
@@ -26,12 +50,23 @@ public class PatternSpawner : MonoBehaviour
             }
 
             spawnTime += Time.deltaTime;
-            if (spawnTime >= 1)
+            if (spawnTime >= spawnTerm)
             {
-                var bulb = Instantiate(spawnObj, this.transform);
-                bulb.spawner = this;
-                bulbList.Add(bulb.transform);
-                spawnTime -= 1;
+                int patternNum = GetPatternNumber();
+                if (patternNum != 0 && patternNum < spawnPrefabList.Count)
+                {
+                    var obj = Spawn(patternNum);
+                    spawnObjList.Add(obj.transform);
+                }
+                var bulb = Spawn(0);
+                bulbTrList.Add(bulb.transform);
+                spawnTime -= spawnTerm;
+
+                if (textCnt >= trimText.Length)
+                {
+                    Debug.Log("종료");
+                    yield break;
+                }
             }
             yield return null;
         }

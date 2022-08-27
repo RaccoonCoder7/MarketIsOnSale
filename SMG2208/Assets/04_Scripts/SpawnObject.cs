@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bulb : MonoBehaviour
+public class SpawnObject : MonoBehaviour
 {
     public float moveSpeed;
     public float lifeTime;
+    public int damage;
     [HideInInspector]
     public PatternSpawner spawner;
 
@@ -14,7 +15,7 @@ public class Bulb : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        StartCoroutine(DestroyBulb(lifeTime));
+        StartCoroutine(DestroyByLifetime(lifeTime));
     }
 
     void Update()
@@ -28,14 +29,28 @@ public class Bulb : MonoBehaviour
         transform.Translate(Vector3.left * Time.deltaTime * moveSpeed, Space.World);
     }
 
-    private IEnumerator DestroyBulb(float lifeTime)
+    public void DestroyObject()
+    {
+        if (spawner.bulbTrList.Contains(transform))
+        {
+            spawner.bulbTrList.Remove(transform);
+        }
+
+        if (spawner.spawnObjList.Contains(transform))
+        {
+            spawner.spawnObjList.Remove(transform);
+        }
+
+        Destroy(gameObject);
+    }
+
+    private IEnumerator DestroyByLifetime(float lifeTime)
     {
         while (totalLifeTime < lifeTime)
         {
             yield return null;
         }
 
-        spawner.bulbList.Remove(this.transform);
-        Destroy(gameObject);
+        DestroyObject();
     }
 }

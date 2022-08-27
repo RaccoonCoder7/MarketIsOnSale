@@ -84,7 +84,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         }
     }
 
-    public void AddHP(int damage)
+    public void AddDamage(int damage)
     {
         hp = hp - damage;
     }
@@ -234,6 +234,16 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         {
             CancelDetectBulb();
             playerState = PlayerState.Idle;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag.Equals("DamageObj"))
+        {
+            var spawnObj = other.GetComponent<SpawnObject>();
+            AddDamage(spawnObj.damage);
+            spawnObj.DestroyObject();
         }
     }
 

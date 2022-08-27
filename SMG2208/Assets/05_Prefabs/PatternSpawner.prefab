@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7326669730196003096}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -43,5 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2402c90f0cfdd9c48bdc42243c757916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnObj: {fileID: 5033672837402434071, guid: 9da61b2d2332f774986d392115ddbc48, type: 3}
-  bulbList: []
+  spawnPrefabList:
+  - {fileID: 7637163627202949009, guid: 9da61b2d2332f774986d392115ddbc48, type: 3}
+  - {fileID: 3313690845375917352, guid: 31cba2d1517991243aece4034e5a36a6, type: 3}
+  - {fileID: 3008904746393693363, guid: c9058867bdb3f2740bc3bfbbbd6d7d20, type: 3}
+  - {fileID: 6844340497035798257, guid: 53e6bb70bb7f646499471b708bcba93a, type: 3}
+  patternText: {fileID: 4900000, guid: bde236b04026de945b499fbb12788e35, type: 3}
+  spawnTerm: 2.4
+  bulbTrList: []
+  spawnObjList: []
