@@ -42,6 +42,11 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
 
     void Update()
     {
+        if (hp <= 0)
+        {
+            playerState = PlayerState.Dead;
+            this.gameObject.SetActive(false);
+        }
         switch (playerState)
         {
             case PlayerState.None:
@@ -80,6 +85,8 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
                 }
                 break;
             case PlayerState.Dead:
+                GameMgr.In.gameState = GameMgr.GameState.None;
+                SceneMgr.In.ChangeScene(GameMgr.In.EndingSceneName);
                 break;
         }
     }
@@ -257,5 +264,12 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         return RadianToVector2(degree * Mathf.Deg2Rad);
     }
 
-
+    // Reset the player
+    public void ResetPlayer()
+    {
+        playerState = PlayerState.None;
+        hp = 3;
+        transform.position = new Vector2(transform.position.x, -1);
+        this.gameObject.SetActive(false);
+    }
 }

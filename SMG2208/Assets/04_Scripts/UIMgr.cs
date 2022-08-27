@@ -115,6 +115,7 @@ public class UIMgr : MonoBehaviour
     public void GameExit()
     {
         GameMgr.In.ResetGame();
+        PlayerMgr.In.ResetPlayer();
         SceneMgr.In.ChangeScene(StartSceneName);
     }
 }

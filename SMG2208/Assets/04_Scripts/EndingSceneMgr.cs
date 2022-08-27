@@ -21,6 +21,7 @@ public class EndingSceneMgr : MonoBehaviour
     public void GameRestart()
     {
         GameMgr.In.ResetGame();
+        PlayerMgr.In.ResetPlayer();
         SceneMgr.In.ChangeScene(GameSceneName);
     }
 
@@ -28,6 +29,7 @@ public class EndingSceneMgr : MonoBehaviour
     public void GameExit()
     {
         GameMgr.In.ResetGame();
+        PlayerMgr.In.ResetPlayer();
         SceneMgr.In.ChangeScene(StartSceneName);
     }
 }
