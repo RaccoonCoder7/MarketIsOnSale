@@ -64,7 +64,6 @@ public class PatternSpawner : MonoBehaviour
 
                 if (textCnt >= trimText.Length)
                 {
-                    Debug.Log("종료");
                     yield break;
                 }
             }

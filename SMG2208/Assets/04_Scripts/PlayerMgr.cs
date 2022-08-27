@@ -111,13 +111,12 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
 
     private void DetectBulb()
     {
-        // TODO: 아래 여섯줄 테스트용
-        var startv2 = DegreeToVector2(detectStartDegree);
-        var endv2 = DegreeToVector2(detectEndDegree);
-        var startv3 = new Vector3(startv2.x, startv2.y, 0);
-        var endv3 = new Vector3(endv2.x, endv2.y, 0);
-        Debug.DrawRay(transform.position, startv3.normalized * ropeReachLimit, Color.blue);
-        Debug.DrawRay(transform.position, endv3.normalized * ropeReachLimit, Color.blue);
+        // var startv2 = DegreeToVector2(detectStartDegree);
+        // var endv2 = DegreeToVector2(detectEndDegree);
+        // var startv3 = new Vector3(startv2.x, startv2.y, 0);
+        // var endv3 = new Vector3(endv2.x, endv2.y, 0);
+        // Debug.DrawRay(transform.position, startv3.normalized * ropeReachLimit, Color.blue);
+        // Debug.DrawRay(transform.position, endv3.normalized * ropeReachLimit, Color.blue);
 
         if (detectBulbRoutine != null) return;
 
@@ -177,9 +176,8 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         Vector2 v2 = targetPos - playerPos;
         float degree = Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
 
-        // 아래 두줄은 테스트용 코드
-        var tempDist = new Vector3(v2.x, v2.y, 0);
-        Debug.DrawRay(playerPos, tempDist.normalized * reach, Color.red);
+        // var tempDist = new Vector3(v2.x, v2.y, 0);
+        // Debug.DrawRay(playerPos, tempDist.normalized * reach, Color.red);
 
         if (degree < detectStartDegree || detectEndDegree < degree)
         {
