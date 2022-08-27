@@ -49,6 +49,8 @@ MonoBehaviour:
   hp: 3
   playerState: 1
   jumpPower: 25
+  bulbTr: {fileID: 0}
+  lerpSpeed: 8
 --- !u!212 &6893933110950212744
 SpriteRenderer:
   m_ObjectHideFlags: 0
