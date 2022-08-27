@@ -15,12 +15,14 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
     public Transform bulbTr;
     public List<Transform> bulbTrList;
     public int bulbWaitDistance;
+    public GameObject mouse;
 
     private Rigidbody2D rigid;
     private Coroutine detectBulbRoutine;
     private Coroutine moveToBulbRoutine;
     private float originGravityScale;
     private float currRopeReach;
+    private LineRenderer lr;
 
     public enum PlayerState
     {
@@ -34,6 +36,12 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
 
     void Start()
     {
+        lr = GetComponent<LineRenderer>();
+        lr.startWidth = 0.5f;
+        lr.endWidth = 0.5f;
+        lr.SetPosition(0, Vector3.zero);
+        lr.SetPosition(1, Vector3.zero);
+        mouse.SetActive(false);
         rigid = GetComponent<Rigidbody2D>();
         originGravityScale = rigid.gravityScale;
         rigid.gravityScale = 0;
@@ -95,6 +103,9 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
                     GameMgr.In.gameState = GameMgr.GameState.None;
                     SceneMgr.In.ChangeScene(GameMgr.In.EndingSceneName);
                     AudioMgr.In.StopPlay();
+                    lr.SetPosition(0, Vector3.zero);
+                    lr.SetPosition(1, Vector3.zero);
+                    mouse.SetActive(false);
                     break;
             }
         }
@@ -148,6 +159,9 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
 
         bulbTr = null;
         currRopeReach = 0;
+        lr.SetPosition(0, Vector3.zero);
+        lr.SetPosition(1, Vector3.zero);
+        mouse.SetActive(false);
     }
 
     private void MoveToBulb()
@@ -168,6 +182,9 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         bulbTr = null;
         rigid.gravityScale = originGravityScale;
         playerState = PlayerState.None;
+        lr.SetPosition(0, Vector3.zero);
+        lr.SetPosition(1, Vector3.zero);
+        mouse.SetActive(false);
     }
 
     private Transform GetTargetBulbTr(float reach)
@@ -208,6 +225,13 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
     {
         while (bulbTr == null)
         {
+            var ropePos = GetRopePos();
+            var fixedRopePos = transform.position + ropePos;
+            lr.SetPosition(0, transform.position);
+            lr.SetPosition(1, fixedRopePos);
+            mouse.SetActive(true);
+            mouse.transform.position = fixedRopePos;
+
             currRopeReach += Time.deltaTime * ropeReachSpeed;
             if (currRopeReach >= ropeReachLimit)
             {
@@ -224,6 +248,13 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         detectBulbRoutine = null;
     }
 
+    private Vector3 GetRopePos()
+    {
+        var v2 = DegreeToVector2(detectEndDegree - detectStartDegree);
+        var v3 = new Vector3(v2.x, v2.y, 0);
+        return v3.normalized * currRopeReach;
+    }
+
     private IEnumerator MoveToBulbRoutine()
     {
         rigid.gravityScale = 0;
@@ -234,12 +265,18 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
 
         while (targetPos.y * 0.925f > transform.position.y || dist > bulbWaitDistance)
         {
+            lr.SetPosition(0, transform.position);
+            lr.SetPosition(1, bulbTr.position);
+            mouse.transform.position = bulbTr.position;
             dist = Vector2.Distance(new Vector2(bulbTr.position.x, 0)
                                 , new Vector2(transform.position.x, 0));
             transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * goToBulbSpeed / dist);
             yield return null;
         }
 
+        lr.SetPosition(0, Vector3.zero);
+        lr.SetPosition(1, Vector3.zero);
+        mouse.SetActive(false);
         rigid.gravityScale = originGravityScale;
         rigid.velocity = Vector2.zero;
         rigid.AddForce(Vector3.up * jumpPower / 5, ForceMode2D.Impulse);
