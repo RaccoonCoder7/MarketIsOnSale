@@ -48,6 +48,7 @@ public class NarrationSceneMgr : MonoBehaviour
     public void MoveToGameScene()
     {
         SceneMgr.In.ChangeScene(gameSceneName);
+        PlayerMgr.In.InitPlayer();
     }
 
     private void SkipCurrNarration()

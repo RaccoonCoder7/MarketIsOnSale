@@ -49,8 +49,16 @@ MonoBehaviour:
   hp: 3
   playerState: 1
   jumpPower: 25
+  ropeReachSpeed: 30
+  goToBulbSpeed: 25
+  detectStartDegree: 45
+  detectEndDegree: 75
   bulbTr: {fileID: 0}
-  lerpSpeed: 8
+  bulbTrList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  bulbWaitDistance: 2
 --- !u!212 &6893933110950212744
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -7,13 +7,19 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
     public int hp;
     public PlayerState playerState;
     public float jumpPower;
+    public float ropeReachSpeed;
+    public float goToBulbSpeed;
+    public float detectStartDegree;
+    public float detectEndDegree;
     public Transform bulbTr;
-    public int lerpSpeed;
+    public List<Transform> bulbTrList;
+    public int bulbWaitDistance;
 
     private Rigidbody2D rigid;
     private Coroutine detectBulbRoutine;
     private Coroutine moveToBulbRoutine;
     private float originGravityScale;
+    private float currRopeReach;
 
     public enum PlayerState
     {
@@ -29,6 +35,8 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
     {
         rigid = GetComponent<Rigidbody2D>();
         originGravityScale = rigid.gravityScale;
+        rigid.gravityScale = 0;
+        this.gameObject.SetActive(false);
     }
 
     void Update()
@@ -57,6 +65,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
                 if (Input.GetKeyUp(KeyCode.Space))
                 {
                     CancelDetectBulb();
+                    playerState = PlayerState.None;
                 }
                 break;
             case PlayerState.RopeJump:
@@ -77,6 +86,12 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
     public void AddHP(int damage)
     {
         hp = hp - damage;
+    }
+
+    public void InitPlayer()
+    {
+        rigid.gravityScale = originGravityScale;
+        this.gameObject.SetActive(true);
     }
 
     private void Jump()
@@ -100,8 +115,8 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
             detectBulbRoutine = null;
         }
 
-        detectBulbRoutine = null;
-        playerState = PlayerState.None;
+        bulbTr = null;
+        currRopeReach = 0;
     }
 
     private void MoveToBulb()
@@ -119,16 +134,53 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
             moveToBulbRoutine = null;
         }
 
+        bulbTr = null;
         rigid.gravityScale = originGravityScale;
         playerState = PlayerState.None;
     }
 
+    private Transform GetTargetBulbTr(float reach)
+    {
+        foreach (var tr in bulbTrList)
+        {
+            if (IsTargetted(tr, reach))
+            {
+                currRopeReach = 0;
+                return tr;
+            }
+        }
+        return null;
+    }
+
+    private bool IsTargetted(Transform targetTr, float reach)
+    {
+        Vector2 targetPos = new Vector2(targetTr.position.x, targetTr.position.y);
+        Vector2 playerPos = new Vector2(transform.position.x, transform.position.y);
+
+        Vector2 v2 = targetPos - playerPos;
+        float degree = Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
+        if (degree < detectStartDegree || detectEndDegree < degree)
+        {
+            return false;
+        }
+
+        var dist = Vector2.Distance(targetPos, playerPos);
+        var tempDist = new Vector3(v2.x, v2.y, 0);
+        Debug.DrawRay(playerPos, tempDist.normalized * reach, Color.red);
+
+        return reach >= dist;
+    }
+
     private IEnumerator DetectBulbRoutine()
     {
-        // TODO: 로프 발사 구현
-        yield return new WaitForSeconds(0.1f);
-        // TODO: bulb 오브젝트 세팅
+        while (bulbTr == null)
+        {
+            currRopeReach += Time.deltaTime * ropeReachSpeed;
+            bulbTr = GetTargetBulbTr(currRopeReach);
+            yield return null;
+        }
 
+        currRopeReach = 0;
         playerState = PlayerState.RopeJump;
         detectBulbRoutine = null;
     }
@@ -138,17 +190,21 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         rigid.gravityScale = 0;
         rigid.velocity = Vector2.zero;
         Vector3 targetPos = new Vector3(transform.position.x, bulbTr.position.y, 0);
+        float dist = Vector2.Distance(new Vector2(bulbTr.position.x, 0)
+                                    , new Vector2(transform.position.x, 0));
 
-        // TODO: 타겟의 x값을 가지고 lerpSpeed를 바꿔줘야 함
-        while (targetPos.y * 0.9f > transform.position.y)
+        while (targetPos.y * 0.925f > transform.position.y || dist > bulbWaitDistance)
         {
-            transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * lerpSpeed);
+            dist = Vector2.Distance(new Vector2(bulbTr.position.x, 0)
+                                , new Vector2(transform.position.x, 0));
+            transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * goToBulbSpeed / dist);
             yield return null;
         }
 
         rigid.gravityScale = originGravityScale;
         rigid.velocity = Vector2.zero;
         rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
+        bulbTr = null;
         playerState = PlayerState.None;
         moveToBulbRoutine = null;
     }
@@ -157,7 +213,10 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
     {
         if (other.gameObject.tag.Equals("Ground"))
         {
+            CancelDetectBulb();
             playerState = PlayerState.Idle;
         }
     }
+
+
 }
