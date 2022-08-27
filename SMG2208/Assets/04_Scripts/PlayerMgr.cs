@@ -69,6 +69,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
                 case PlayerState.Idle:
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
+                        playerState = PlayerState.Jump;
                         Jump();
                     }
                     break;
@@ -130,7 +131,6 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
     {
         rigid.velocity = Vector2.zero;
         rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
-        playerState = PlayerState.Jump;
         AudioMgr.In.PlayOneShot(1);
     }
 

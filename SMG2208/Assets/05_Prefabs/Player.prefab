@@ -51,7 +51,7 @@ MonoBehaviour:
   hp: 3
   playerState: 0
   jumpPower: 25
-  ropeReachSpeed: 30
+  ropeReachSpeed: 35
   ropeReachLimit: 10
   goToBulbSpeed: 25
   detectStartDegree: 25
