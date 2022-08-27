@@ -1060,6 +1060,7 @@ MonoBehaviour:
   scorePerItem: 500
   gameLimitTime: 120
   totalItemCnt: 0
+  EndingSceneName: EndingScene
 --- !u!4 &1703816416
 Transform:
   m_ObjectHideFlags: 0

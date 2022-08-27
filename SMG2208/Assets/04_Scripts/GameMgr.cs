@@ -11,6 +11,7 @@ public class GameMgr : SingletonMono<GameMgr>
     public int scorePerItem;
     public int gameLimitTime;
     public int totalItemCnt;
+    public string EndingSceneName;
 
     private float tempTime;
 
@@ -40,6 +41,7 @@ public class GameMgr : SingletonMono<GameMgr>
                 if (totalTime >= gameLimitTime)
                 {
                     gameState = GameState.None;
+                    SceneMgr.In.ChangeScene(EndingSceneName);
                 }
                 break;
         }

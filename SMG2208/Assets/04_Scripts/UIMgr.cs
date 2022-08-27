@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UIMgr : MonoBehaviour
 {
+    public GameObject pauseBtn;
     public GameObject menuSet;
     public GameObject howToPlayWindow;
     public GameObject timeBoard;
@@ -12,6 +13,7 @@ public class UIMgr : MonoBehaviour
     public GameObject countdown;
 
     public Image[] hearts;
+    public string StartSceneName;
 
     private float count;
     private Text timeBoardText;
@@ -22,6 +24,7 @@ public class UIMgr : MonoBehaviour
     void Start()
     {
         GameMgr.In.gameState = GameMgr.GameState.None;
+        pauseBtn.SetActive(false);
         menuSet.SetActive(false);
         howToPlayWindow.SetActive(true);
         timeBoard.SetActive(false);
@@ -60,6 +63,7 @@ public class UIMgr : MonoBehaviour
                     if(count <= 0.0f)
                     {
                         GameMgr.In.gameState = GameMgr.GameState.Play;
+                        pauseBtn.SetActive(true);
                         countdown.SetActive(false);
                     }
                 }
@@ -95,6 +99,7 @@ public class UIMgr : MonoBehaviour
     public void GamePause()
     {
         GameMgr.In.gameState = GameMgr.GameState.Pause;
+        pauseBtn.SetActive(false);
         menuSet.SetActive(true);
     }
 
@@ -102,6 +107,7 @@ public class UIMgr : MonoBehaviour
     public void GameResume()
     {
         GameMgr.In.gameState = GameMgr.GameState.Play;
+        pauseBtn.SetActive(true);
         menuSet.SetActive(false);
     }
 
@@ -109,5 +115,6 @@ public class UIMgr : MonoBehaviour
     public void GameExit()
     {
         GameMgr.In.ResetGame();
+        SceneMgr.In.ChangeScene(StartSceneName);
     }
 }
