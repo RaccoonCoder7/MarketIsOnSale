@@ -104,6 +104,14 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
 
     private void DetectBulb()
     {
+        // TODO: 아래 여섯줄 테스트용
+        var startv2 = DegreeToVector2(detectStartDegree);
+        var endv2 = DegreeToVector2(detectEndDegree);
+        var startv3 = new Vector3(startv2.x, startv2.y, 0);
+        var endv3 = new Vector3(endv2.x, endv2.y, 0);
+        Debug.DrawRay(transform.position, startv3.normalized * ropeReachLimit, Color.blue);
+        Debug.DrawRay(transform.position, endv3.normalized * ropeReachLimit, Color.blue);
+
         if (detectBulbRoutine != null) return;
 
         detectBulbRoutine = StartCoroutine(DetectBulbRoutine());
@@ -161,14 +169,17 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
 
         Vector2 v2 = targetPos - playerPos;
         float degree = Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
+
+        // 아래 두줄은 테스트용 코드
+        var tempDist = new Vector3(v2.x, v2.y, 0);
+        Debug.DrawRay(playerPos, tempDist.normalized * reach, Color.red);
+
         if (degree < detectStartDegree || detectEndDegree < degree)
         {
             return false;
         }
 
         var dist = Vector2.Distance(targetPos, playerPos);
-        var tempDist = new Vector3(v2.x, v2.y, 0);
-        Debug.DrawRay(playerPos, tempDist.normalized * reach, Color.red);
 
         return reach >= dist;
     }
@@ -181,6 +192,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
             if (currRopeReach >= ropeReachLimit)
             {
                 CancelDetectBulb();
+                playerState = PlayerState.None;
                 yield break;
             }
             bulbTr = GetTargetBulbTr(currRopeReach);
@@ -223,6 +235,16 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
             CancelDetectBulb();
             playerState = PlayerState.Idle;
         }
+    }
+
+    public static Vector2 RadianToVector2(float radian)
+    {
+        return new Vector2(Mathf.Cos(radian), Mathf.Sin(radian));
+    }
+
+    public static Vector2 DegreeToVector2(float degree)
+    {
+        return RadianToVector2(degree * Mathf.Deg2Rad);
     }
 
 
