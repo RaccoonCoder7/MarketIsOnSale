@@ -264,6 +264,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         else if (other.gameObject.tag.Equals("Item"))
         {
             // TODO: Item
+            GameMgr.In.AddItem(1);
             AudioMgr.In.PlayOneShot(3);
         }
     }

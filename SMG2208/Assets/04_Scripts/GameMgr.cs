@@ -48,12 +48,6 @@ public class GameMgr : SingletonMono<GameMgr>
         }
     }
 
-    // Adding the score
-    public void AddScore(int value)
-    {
-        score += value;
-    }
-
     // Adding the item amount
     public void AddItem(int value)
     {
