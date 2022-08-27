@@ -102,7 +102,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
                 case PlayerState.Dead:
                     GameMgr.In.gameState = GameMgr.GameState.None;
                     SceneMgr.In.ChangeScene(GameMgr.In.EndingSceneName);
-                    AudioMgr.In.StopPlay();
+                    AudioMgr.In.Play(7);
                     lr.SetPosition(0, Vector3.zero);
                     lr.SetPosition(1, Vector3.zero);
                     mouse.SetActive(false);
@@ -301,6 +301,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
             var spawnObj = other.GetComponent<SpawnObject>();
             AddDamage(spawnObj.damage);
             spawnObj.DestroyBulb();
+            AudioMgr.In.PlayOneShot(4);
         }
         else if (other.gameObject.tag.Equals("Item"))
         {

@@ -48,5 +48,6 @@ public class EndingSceneMgr : MonoBehaviour
         GameMgr.In.ResetGame();
         PlayerMgr.In.ResetPlayer();
         SceneMgr.In.ChangeScene(StartSceneName);
+        AudioMgr.In.Play(5);
     }
 }

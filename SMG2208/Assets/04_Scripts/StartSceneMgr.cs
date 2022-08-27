@@ -9,6 +9,7 @@ public class StartSceneMgr : MonoBehaviour
     public void MoveToNarrationScene()
     {
         SceneMgr.In.ChangeScene(NarrationSceneName);
+        AudioMgr.In.Play(6);
     }
 
     public void GameQuit()

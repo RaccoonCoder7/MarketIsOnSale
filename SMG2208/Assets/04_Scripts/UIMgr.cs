@@ -52,8 +52,8 @@ public class UIMgr : MonoBehaviour
                 hearts[i].enabled = false;
             }
         }
-        timeBoardText.text = "≥≤¿∫ Ω√∞£ : " + ((int)GameMgr.In.gameLimitTime - (int)GameMgr.In.totalTime);
-        scoreBoardText.text = "¡°ºˆ : " + GameMgr.In.GetTotalScore();
+        timeBoardText.text = "ÎÇ®ÏùÄ ÏãúÍ∞Ñ : " + ((int)GameMgr.In.gameLimitTime - (int)GameMgr.In.totalTime);
+        scoreBoardText.text = "Ï†êÏàò : " + GameMgr.In.GetTotalScore();
         switch (GameMgr.In.gameState)
         {
             case GameMgr.GameState.None:
@@ -120,5 +120,6 @@ public class UIMgr : MonoBehaviour
         GameMgr.In.ResetGame();
         PlayerMgr.In.ResetPlayer();
         SceneMgr.In.ChangeScene(StartSceneName);
+        AudioMgr.In.Play(5);
     }
 }
