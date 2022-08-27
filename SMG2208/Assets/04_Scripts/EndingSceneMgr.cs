@@ -7,7 +7,7 @@ public class EndingSceneMgr : MonoBehaviour
 {
     public GameObject scoreBoard;
     public Image portrait;
-    public Text name;
+    public Text talkerName;
     public Text quote;
     public string GameSceneName;
     public string StartSceneName;
@@ -21,13 +21,13 @@ public class EndingSceneMgr : MonoBehaviour
         if (PlayerMgr.In.hp <= 0)
         {
             portrait.enabled = true;
-            name.text = "아주머니";
+            talkerName.text = "아주머니";
             quote.text = "그러게 총각 빨리 오지 그랬어~";
         }
         else
         {
             portrait.enabled = false;
-            name.text = "피치";
+            talkerName.text = "피치";
             quote.text = "이 정도면 충분하겠지? 이제 배송을 하러 가볼까?";
         }
     }
