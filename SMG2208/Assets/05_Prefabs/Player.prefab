@@ -50,6 +50,7 @@ MonoBehaviour:
   playerState: 1
   jumpPower: 25
   ropeReachSpeed: 30
+  ropeReachLimit: 10
   goToBulbSpeed: 25
   detectStartDegree: 45
   detectEndDegree: 75

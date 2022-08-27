@@ -8,6 +8,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
     public PlayerState playerState;
     public float jumpPower;
     public float ropeReachSpeed;
+    public float ropeReachLimit;
     public float goToBulbSpeed;
     public float detectStartDegree;
     public float detectEndDegree;
@@ -96,6 +97,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
 
     private void Jump()
     {
+        rigid.velocity = Vector2.zero;
         rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
         playerState = PlayerState.Jump;
     }
@@ -176,6 +178,11 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         while (bulbTr == null)
         {
             currRopeReach += Time.deltaTime * ropeReachSpeed;
+            if (currRopeReach >= ropeReachLimit)
+            {
+                CancelDetectBulb();
+                yield break;
+            }
             bulbTr = GetTargetBulbTr(currRopeReach);
             yield return null;
         }
@@ -203,9 +210,9 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
 
         rigid.gravityScale = originGravityScale;
         rigid.velocity = Vector2.zero;
-        rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
+        rigid.AddForce(Vector3.up * jumpPower / 5, ForceMode2D.Impulse);
         bulbTr = null;
-        playerState = PlayerState.None;
+        playerState = PlayerState.Idle;
         moveToBulbRoutine = null;
     }
 
