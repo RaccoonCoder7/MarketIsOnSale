@@ -8,6 +8,7 @@ public class UIMgr : MonoBehaviour
     public GameObject pauseBtn;
     public GameObject menuSet;
     public GameObject howToPlayWindow;
+    public GameObject healthUI;
     public GameObject timeBoard;
     public GameObject scoreBoard;
     public GameObject countdown;
@@ -27,6 +28,7 @@ public class UIMgr : MonoBehaviour
         pauseBtn.SetActive(false);
         menuSet.SetActive(false);
         howToPlayWindow.SetActive(true);
+        healthUI.SetActive(false);
         timeBoard.SetActive(false);
         scoreBoard.SetActive(false);
         countdown.SetActive(false);
@@ -89,6 +91,7 @@ public class UIMgr : MonoBehaviour
     public void GameStart()
     {
         howToPlayWindow.SetActive(false);
+        healthUI.SetActive(true);
         timeBoard.SetActive(true);
         scoreBoard.SetActive(true);
         countdown.SetActive(true);
