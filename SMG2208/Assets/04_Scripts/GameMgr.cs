@@ -13,8 +13,6 @@ public class GameMgr : SingletonMono<GameMgr>
     public int totalItemCnt;
     public string EndingSceneName;
 
-    private float tempTime;
-
     public enum GameState
     {
         None,
@@ -31,13 +29,7 @@ public class GameMgr : SingletonMono<GameMgr>
                 break;
             case GameState.Play:
                 // Update the time and score
-                tempTime += Time.deltaTime;
                 totalTime += Time.deltaTime;
-                if (tempTime >= 1)
-                {
-                    AddScore(scorePerSecond);
-                    tempTime -= 1;
-                }
                 if (totalTime >= gameLimitTime)
                 {
                     gameState = GameState.None;
@@ -61,7 +53,6 @@ public class GameMgr : SingletonMono<GameMgr>
         score = 0;
         totalTime = 0;
         totalItemCnt = 0;
-        tempTime = 0;
     }
 
     // Calculating the total score
