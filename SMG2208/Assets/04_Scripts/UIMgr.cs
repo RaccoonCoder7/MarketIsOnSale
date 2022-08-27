@@ -12,6 +12,9 @@ public class UIMgr : MonoBehaviour
     public GameObject countdown;
 
     private float count;
+    private Text timeBoardText;
+    private Text scoreBoardText;
+    private Text countdownText;
 
     // Start is called before the first frame update
     void Start()
@@ -22,18 +25,22 @@ public class UIMgr : MonoBehaviour
         timeBoard.SetActive(false);
         scoreBoard.SetActive(false);
         countdown.SetActive(false);
+        timeBoardText = timeBoard.GetComponentInChildren<Text>();
+        scoreBoardText = scoreBoard.GetComponentInChildren<Text>();
+        countdownText = countdown.GetComponentInChildren<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        timeBoardText.text = "남은 시간 : " + ((int)GameMgr.In.gameLimitTime - (int)GameMgr.In.totalTime);
+        scoreBoardText.text = "점수 : " + GameMgr.In.GetTotalScore();
         switch (GameMgr.In.gameState)
         {
             case GameMgr.GameState.None:
                 // Countdown
                 if (countdown.activeSelf)
                 {
-                    Text countdownText = countdown.GetComponentInChildren<Text>();
                     count -= Time.deltaTime;
                     countdownText.text = ((int)count + 1).ToString();
                     if(count <= 0.0f)

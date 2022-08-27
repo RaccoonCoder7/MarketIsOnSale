@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class GameMgr : SingletonMono<GameMgr>
 {
-    public int score;
-    public float totalTime;
+    public int score = 0;
+    public float totalTime = 0;
     public GameState gameState = GameState.None;
     public int scorePerSecond = 100;
     public int scorePerItem = 500;
     public int gameLimitTime = 120;
-    public int totalItemCnt;
+    public int totalItemCnt = 0;
 
     private float tempTime;
 
@@ -45,19 +45,19 @@ public class GameMgr : SingletonMono<GameMgr>
         }
     }
 
-    // Adding score
+    // Adding the score
     public void AddScore(int value)
     {
         score += value;
     }
 
-    // Adding item amount
+    // Adding the item amount
     public void AddItem(int value)
     {
         totalItemCnt += value;
     }
 
-    // Reset game
+    // Reset the game
     public void ResetGame()
     {
         gameState = GameState.None;
@@ -70,6 +70,6 @@ public class GameMgr : SingletonMono<GameMgr>
     // Calculating the total score
     public int GetTotalScore()
     {
-        return (totalItemCnt * scorePerItem) + (gameLimitTime * scorePerSecond);
+        return (totalItemCnt * scorePerItem) + ((int)totalTime * scorePerSecond);
     }
 }
