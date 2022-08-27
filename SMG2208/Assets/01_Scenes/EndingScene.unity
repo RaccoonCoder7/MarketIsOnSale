@@ -842,7 +842,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreBoard: {fileID: 1501508865}
   portrait: {fileID: 1652314889}
-  name: {fileID: 917556657}
+  talkerName: {fileID: 917556657}
   quote: {fileID: 1117042255}
   GameSceneName: GameScene
   StartSceneName: StartScene
