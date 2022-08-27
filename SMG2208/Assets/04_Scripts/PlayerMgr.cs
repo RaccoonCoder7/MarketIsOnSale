@@ -47,6 +47,10 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
             playerState = PlayerState.Dead;
             this.gameObject.SetActive(false);
         }
+        if (GameMgr.In.totalTime >= GameMgr.In.gameLimitTime)
+        {
+            this.gameObject.SetActive(false);
+        }
         if (GameMgr.In.gameState == GameMgr.GameState.Play)
         {
             rigid.WakeUp();

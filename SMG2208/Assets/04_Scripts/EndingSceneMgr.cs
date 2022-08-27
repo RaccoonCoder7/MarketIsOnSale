@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EndingSceneMgr : MonoBehaviour
 {
     public GameObject scoreBoard;
+    public GameObject talkingBox;
     public string GameSceneName;
     public string StartSceneName;
 
@@ -15,6 +16,14 @@ public class EndingSceneMgr : MonoBehaviour
         Text scoreBoardText = scoreBoard.GetComponentInChildren<Text>();
         int totalScore = GameMgr.In.GetTotalScore();
         scoreBoardText.text = "점수: " + totalScore.ToString();
+        if (PlayerMgr.In.hp <= 0)
+        {
+            talkingBox.SetActive(true);
+        }
+        else
+        {
+            talkingBox.SetActive(false);
+        }
     }
 
     // Restart the Game
