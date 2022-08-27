@@ -52,8 +52,8 @@ MonoBehaviour:
   ropeReachSpeed: 30
   ropeReachLimit: 10
   goToBulbSpeed: 25
-  detectStartDegree: 45
-  detectEndDegree: 75
+  detectStartDegree: 25
+  detectEndDegree: 55
   bulbTr: {fileID: 0}
   bulbTrList:
   - {fileID: 0}
