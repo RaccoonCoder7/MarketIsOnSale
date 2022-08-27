@@ -6,6 +6,9 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
 {
     public int hp;
     public PlayerState playerState;
+    public float jumpPower;
+
+    private Rigidbody2D rigid;
 
     public enum PlayerState
     {
@@ -15,6 +18,11 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         Rope,
         RopeJump,
         Dead
+    }
+
+    void Start()
+    {
+        rigid = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -67,8 +75,8 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
 
     private void Jump()
     {
-        // TODO: Y값 조정
-        playerState = PlayerState.Rope;
+        rigid.AddForce(Vector3.up *jumpPower, ForceMode2D.Impulse);
+        playerState = PlayerState.Jump;
     }
 
     private void DetectBulb()
@@ -91,5 +99,13 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
     {
         // TODO: Y값 변경 취소
         playerState = PlayerState.None;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag.Equals("Ground"))
+        {
+            playerState = PlayerState.Idle;
+        }
     }
 }
