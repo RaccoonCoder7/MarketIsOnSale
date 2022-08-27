@@ -10,4 +10,9 @@ public class StartSceneMgr : MonoBehaviour
     {
         SceneMgr.In.ChangeScene(NarrationSceneName);
     }
+
+    public void GameQuit()
+    {
+        Application.Quit();
+    }
 }
