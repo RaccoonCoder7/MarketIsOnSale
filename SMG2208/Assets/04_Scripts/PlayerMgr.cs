@@ -263,13 +263,14 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         {
             var spawnObj = other.GetComponent<SpawnObject>();
             AddDamage(spawnObj.damage);
-            spawnObj.DestroyObject();
+            spawnObj.DestroyBulb();
         }
         else if (other.gameObject.tag.Equals("Item"))
         {
             // TODO: Item
             GameMgr.In.AddItem(1);
             AudioMgr.In.PlayOneShot(3);
+            Destroy(other.gameObject);
         }
     }
 

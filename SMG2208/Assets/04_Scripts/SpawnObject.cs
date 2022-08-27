@@ -7,7 +7,7 @@ public class SpawnObject : MonoBehaviour
     public float moveSpeed;
     public float lifeTime;
     public int damage;
-    [HideInInspector]
+    // [HideInInspector]
     public PatternSpawner spawner;
 
     private float totalLifeTime;
@@ -29,17 +29,17 @@ public class SpawnObject : MonoBehaviour
         transform.Translate(Vector3.left * Time.deltaTime * moveSpeed, Space.World);
     }
 
-    public void DestroyObject()
+    public void DestroyBulb()
     {
-        if (spawner.bulbTrList.Contains(transform))
+        if (spawner != null && spawner.bulbTrList.Contains(transform))
         {
             spawner.bulbTrList.Remove(transform);
         }
 
-        if (spawner.spawnObjList.Contains(transform))
-        {
-            spawner.spawnObjList.Remove(transform);
-        }
+        // if (spawner.spawnObjList.Contains(transform))
+        // {
+        //     spawner.spawnObjList.Remove(transform);
+        // }
 
         Destroy(gameObject);
     }
@@ -51,6 +51,6 @@ public class SpawnObject : MonoBehaviour
             yield return null;
         }
 
-        DestroyObject();
+        DestroyBulb();
     }
 }

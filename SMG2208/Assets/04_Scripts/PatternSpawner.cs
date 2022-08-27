@@ -4,43 +4,66 @@ using UnityEngine;
 
 public class PatternSpawner : MonoBehaviour
 {
-    public List<SpawnObject> spawnPrefabList = new List<SpawnObject>();
-    public TextAsset patternText;
-    public float spawnTerm = 2.395f;
-    public List<Transform> bulbTrList = new List<Transform>();
+    public List<SpawnObject> objPrefabList = new List<SpawnObject>();
+    public List<SpawnObject> itemPrefabList = new List<SpawnObject>();
+    public TextAsset objText;
+    public TextAsset itemText;
+    public float objSpawnTerm = 1.2f;
+    public float itemSpawnTerm = 0.6f;
     [HideInInspector]
-    public List<Transform> spawnObjList = new List<Transform>();
+    public List<Transform> bulbTrList = new List<Transform>();
+    // public List<Transform> spawnObjList = new List<Transform>();
+    // [HideInInspector]
+    // public List<Transform> spawnItemList = new List<Transform>();
 
-    private float spawnTime;
-    private int textCnt;
-    private string trimText;
+    private float objSpawnTime;
+    private float itemSpawnTime;
+    private int spawnTextCnt;
+    private string spawnTrimText;
+    private int itemTextCnt;
+    private string itemTrimText;
 
     void Start()
     {
-        trimText = patternText.text.Trim();
-        spawnTime = spawnTerm;
+        spawnTrimText = objText.text.Trim();
+        objSpawnTime = objSpawnTerm;
+        itemTrimText = itemText.text.Trim();
+        itemSpawnTime = itemSpawnTerm;
 
-        // TODO: 오브젝트풀링
         PlayerMgr.In.bulbTrList = this.bulbTrList;
-        StartCoroutine(StartSpawn());
+        StartCoroutine(StartObjSpawn());
+        StartCoroutine(StartItemSpawn());
     }
 
     private int GetPatternNumber()
     {
         int num = 0;
-        System.Int32.TryParse(trimText[textCnt].ToString(), out num);
-        textCnt++;
+        System.Int32.TryParse(spawnTrimText[spawnTextCnt].ToString(), out num);
+        spawnTextCnt++;
+        return num;
+    }
+
+    private int GetItemPatternNumber()
+    {
+        int num = 0;
+        System.Int32.TryParse(itemTrimText[itemTextCnt].ToString(), out num);
+        itemTextCnt++;
         return num;
     }
 
     private SpawnObject Spawn(int patternNum)
     {
-        var obj = Instantiate(spawnPrefabList[patternNum], this.transform);
+        var obj = Instantiate(objPrefabList[patternNum], this.transform);
         obj.spawner = this;
         return obj;
     }
 
-    private IEnumerator StartSpawn()
+    private void ItemSpawn(int patternNum)
+    {
+        Instantiate(itemPrefabList[patternNum], this.transform);
+    }
+
+    private IEnumerator StartObjSpawn()
     {
         while (true)
         {
@@ -49,20 +72,47 @@ public class PatternSpawner : MonoBehaviour
                 yield return null;
             }
 
-            spawnTime += Time.deltaTime;
-            if (spawnTime >= spawnTerm)
+            objSpawnTime += Time.deltaTime;
+            if (objSpawnTime >= objSpawnTerm)
             {
                 int patternNum = GetPatternNumber();
-                if (patternNum != 0 && patternNum < spawnPrefabList.Count)
+                if (patternNum != 0 && patternNum < objPrefabList.Count)
                 {
-                    var obj = Spawn(patternNum);
-                    spawnObjList.Add(obj.transform);
+                    Spawn(patternNum);
                 }
                 var bulb = Spawn(0);
                 bulbTrList.Add(bulb.transform);
-                spawnTime -= spawnTerm;
+                objSpawnTime -= objSpawnTerm;
 
-                if (textCnt >= trimText.Length)
+                if (spawnTextCnt >= spawnTrimText.Length)
+                {
+                    yield break;
+                }
+            }
+            yield return null;
+        }
+    }
+
+    private IEnumerator StartItemSpawn()
+    {
+        while (true)
+        {
+            while (GameMgr.In.gameState != GameMgr.GameState.Play)
+            {
+                yield return null;
+            }
+
+            itemSpawnTime += Time.deltaTime;
+            if (itemSpawnTime >= itemSpawnTerm)
+            {
+                int patternNum = GetItemPatternNumber();
+                if (patternNum != 0 && patternNum < itemPrefabList.Count)
+                {
+                    ItemSpawn(patternNum);
+                }
+                itemSpawnTime -= itemSpawnTerm;
+
+                if (itemTextCnt >= itemTrimText.Length)
                 {
                     yield break;
                 }

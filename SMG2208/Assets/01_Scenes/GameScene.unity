@@ -1016,17 +1016,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4085099232243177036, guid: 81ccb23ca6b66814a8ed5fe504dacef1, type: 3}
-      propertyPath: spawnTerm
-      value: 1.2
-      objectReference: {fileID: 0}
     - target: {fileID: 7326669730196003096, guid: 81ccb23ca6b66814a8ed5fe504dacef1, type: 3}
       propertyPath: m_Name
       value: PatternSpawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 7326669730196003096, guid: 81ccb23ca6b66814a8ed5fe504dacef1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81ccb23ca6b66814a8ed5fe504dacef1, type: 3}

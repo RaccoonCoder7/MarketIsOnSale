@@ -43,12 +43,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2402c90f0cfdd9c48bdc42243c757916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPrefabList:
+  objPrefabList:
   - {fileID: 7637163627202949009, guid: 9da61b2d2332f774986d392115ddbc48, type: 3}
   - {fileID: 3313690845375917352, guid: 31cba2d1517991243aece4034e5a36a6, type: 3}
   - {fileID: 3008904746393693363, guid: c9058867bdb3f2740bc3bfbbbd6d7d20, type: 3}
   - {fileID: 6844340497035798257, guid: 53e6bb70bb7f646499471b708bcba93a, type: 3}
-  patternText: {fileID: 4900000, guid: bde236b04026de945b499fbb12788e35, type: 3}
-  spawnTerm: 2.4
+  itemPrefabList:
+  - {fileID: 1574297353808230294, guid: cd28b59e9c43d8a4bba26dd6ba9e954a, type: 3}
+  - {fileID: 3342630674516029998, guid: da4265363f4136c4ca7468f7c20536a5, type: 3}
+  - {fileID: 4689612160668267915, guid: 5b29fe37c2faddc4583434b6f59a4700, type: 3}
+  - {fileID: 5902044097596035336, guid: e03925c1177228648baa13195d8b92fb, type: 3}
+  - {fileID: 4241619897564659120, guid: 50cacecdeeffb4b4a87c8e509838b48c, type: 3}
+  - {fileID: 4981867988598812518, guid: 078dc417f4e93bf45a189ca518eee406, type: 3}
+  - {fileID: 4377346742199347591, guid: 79d22507f4ab38f4ebdc27ea36298811, type: 3}
+  - {fileID: 1407590309506919166, guid: b0871117fd8f6a74e8045ad2a4d5301e, type: 3}
+  - {fileID: 1574297353808230294, guid: cd28b59e9c43d8a4bba26dd6ba9e954a, type: 3}
+  objText: {fileID: 4900000, guid: bde236b04026de945b499fbb12788e35, type: 3}
+  itemText: {fileID: 4900000, guid: 07c7cd46248f6ec4f9a5c18d9ae31884, type: 3}
+  objSpawnTerm: 1.2
+  itemSpawnTerm: 0.6
   bulbTrList: []
-  spawnObjList: []
