@@ -16,6 +16,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
     public List<Transform> bulbTrList;
     public int bulbWaitDistance;
     public GameObject mouse;
+    public Animator animator;
 
     private Rigidbody2D rigid;
     private Coroutine detectBulbRoutine;
@@ -46,10 +47,19 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         originGravityScale = rigid.gravityScale;
         rigid.gravityScale = 0;
         this.gameObject.SetActive(false);
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
+        if (rigid.velocity.y > 5)
+        {
+            animator.SetTrigger("Up");
+        }
+        if (rigid.velocity.y  < -5)
+        {
+            animator.SetTrigger("Down");
+        }
         if (hp <= 0)
         {
             playerState = PlayerState.Dead;
@@ -102,6 +112,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
                     break;
                 case PlayerState.Dead:
                     GameMgr.In.gameState = GameMgr.GameState.None;
+                    PlayerMgr.In.animator.SetTrigger("Stop");
                     SceneMgr.In.ChangeScene(GameMgr.In.EndingSceneName);
                     AudioMgr.In.Play(7);
                     lr.SetPosition(0, Vector3.zero);
@@ -290,6 +301,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         if (other.gameObject.tag.Equals("Ground"))
         {
             CancelDetectBulb();
+            animator.SetTrigger("Ground");
             playerState = PlayerState.Idle;
         }
     }

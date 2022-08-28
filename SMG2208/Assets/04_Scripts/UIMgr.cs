@@ -25,6 +25,7 @@ public class UIMgr : MonoBehaviour
     void Start()
     {
         GameMgr.In.gameState = GameMgr.GameState.None;
+        PlayerMgr.In.animator.SetTrigger("Stop");
         pauseBtn.SetActive(false);
         menuSet.SetActive(false);
         howToPlayWindow.SetActive(true);
@@ -57,6 +58,7 @@ public class UIMgr : MonoBehaviour
         switch (GameMgr.In.gameState)
         {
             case GameMgr.GameState.None:
+                PlayerMgr.In.animator.SetTrigger("Stop");
                 // Countdown
                 if (countdown.activeSelf)
                 {
@@ -65,6 +67,7 @@ public class UIMgr : MonoBehaviour
                     if(count <= 0.0f)
                     {
                         GameMgr.In.gameState = GameMgr.GameState.Play;
+                        PlayerMgr.In.animator.SetTrigger("Start");
                         pauseBtn.SetActive(true);
                         countdown.SetActive(false);
                     }
@@ -102,6 +105,7 @@ public class UIMgr : MonoBehaviour
     public void GamePause()
     {
         GameMgr.In.gameState = GameMgr.GameState.Pause;
+        PlayerMgr.In.animator.SetTrigger("Stop");
         pauseBtn.SetActive(false);
         menuSet.SetActive(true);
     }
@@ -110,6 +114,7 @@ public class UIMgr : MonoBehaviour
     public void GameResume()
     {
         GameMgr.In.gameState = GameMgr.GameState.Play;
+        PlayerMgr.In.animator.SetTrigger("Start");
         pauseBtn.SetActive(true);
         menuSet.SetActive(false);
     }

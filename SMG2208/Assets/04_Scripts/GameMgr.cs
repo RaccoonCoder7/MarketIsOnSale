@@ -32,6 +32,7 @@ public class GameMgr : SingletonMono<GameMgr>
                 totalTime += Time.deltaTime;
                 if (totalTime >= gameLimitTime)
                 {
+                    PlayerMgr.In.animator.SetTrigger("Stop");
                     gameState = GameState.None;
                     SceneMgr.In.ChangeScene(EndingSceneName);
                     AudioMgr.In.Play(8);
@@ -50,6 +51,7 @@ public class GameMgr : SingletonMono<GameMgr>
     public void ResetGame()
     {
         gameState = GameState.None;
+        PlayerMgr.In.animator.SetTrigger("Stop");
         score = 0;
         totalTime = 0;
         totalItemCnt = 0;

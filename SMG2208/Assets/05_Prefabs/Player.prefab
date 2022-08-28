@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6893933110950212745}
-  - component: {fileID: 6893933110950212749}
+  - component: {fileID: 1558478526286079041}
   - component: {fileID: 6893933110950212744}
+  - component: {fileID: 6893933110950212749}
   - component: {fileID: 6893933110950212751}
   - component: {fileID: 6893933110950212750}
   - component: {fileID: 4528151403178478814}
@@ -30,39 +31,31 @@ Transform:
   m_GameObject: {fileID: 6893933110950212748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6, y: -1, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4481867663975979210}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6893933110950212749
-MonoBehaviour:
+--- !u!95 &1558478526286079041
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6893933110950212748}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7f5d917e62dbc5459a48d1251856848, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 3
-  playerState: 0
-  jumpPower: 25
-  ropeReachSpeed: 35
-  ropeReachLimit: 10
-  goToBulbSpeed: 25
-  detectStartDegree: 25
-  detectEndDegree: 55
-  bulbTr: {fileID: 0}
-  bulbTrList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  bulbWaitDistance: 2
-  mouse: {fileID: 9093684926724666938}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6fe72bd6a18b54c43b4e862a7c6526fb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &6893933110950212744
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -103,9 +96,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 647d5d9a71af1a643b9370aa79a04028, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.16, y: 0.16}
@@ -114,6 +107,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6893933110950212749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6893933110950212748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7f5d917e62dbc5459a48d1251856848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 3
+  playerState: 0
+  jumpPower: 25
+  ropeReachSpeed: 35
+  ropeReachLimit: 10
+  goToBulbSpeed: 25
+  detectStartDegree: 25
+  detectEndDegree: 55
+  bulbTr: {fileID: 0}
+  bulbTrList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  bulbWaitDistance: 2
+  mouse: {fileID: 9093684926724666938}
+  animator: {fileID: 0}
 --- !u!50 &6893933110950212751
 Rigidbody2D:
   serializedVersion: 4
@@ -150,7 +171,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.061120678
+  m_Radius: 1.5
 --- !u!120 &4528151403178478814
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -274,8 +295,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9093684926724666938}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.40000004, y: 0.06666667, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: 2.57, y: 0.06666667, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 6893933110950212745}
   m_RootOrder: 0
