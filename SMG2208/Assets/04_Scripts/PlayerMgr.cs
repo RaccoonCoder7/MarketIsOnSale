@@ -56,7 +56,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         {
             animator.SetTrigger("Up");
         }
-        if (rigid.velocity.y  < -5)
+        if (rigid.velocity.y < -5)
         {
             animator.SetTrigger("Down");
         }
@@ -274,7 +274,7 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         float dist = Vector2.Distance(new Vector2(bulbTr.position.x, 0)
                                     , new Vector2(transform.position.x, 0));
 
-        while (targetPos.y * 0.925f > transform.position.y || dist > bulbWaitDistance)
+        while (targetPos.y * 0.925f > transform.position.y || (bulbTr.position.x > transform.position.x + bulbWaitDistance))
         {
             lr.SetPosition(0, transform.position);
             lr.SetPosition(1, bulbTr.position);
@@ -317,7 +317,6 @@ public class PlayerMgr : SingletonMono<PlayerMgr>
         }
         else if (other.gameObject.tag.Equals("Item"))
         {
-            // TODO: Item
             GameMgr.In.AddItem(1);
             AudioMgr.In.PlayOneShot(3);
             Destroy(other.gameObject);
