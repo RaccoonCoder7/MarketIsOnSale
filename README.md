@@ -19,4 +19,4 @@
 
 ## 사진/영상 (영상은 클릭 시 유튜브로 이동 됨)
 <b>플레이 샘플 영상</b></br>
-[![Switching](http://img.youtube.com/vi/5c35HLBOR4c/0.jpg)](https://youtu.be/5c35HLBOR4c)
+[![Market Is On Sale](http://img.youtube.com/vi/5c35HLBOR4c/0.jpg)](https://youtu.be/5c35HLBOR4c)
